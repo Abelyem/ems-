@@ -8,6 +8,9 @@ public class Menu {
 
 	public static void MenuOptions() {
 		
+		Scanner in = new Scanner(System.in);
+
+		
 		System.out.println("************* MENU ************* ");
 		System.out.println("                     ");
 		System.out.println("1 - List All Events");
@@ -22,20 +25,16 @@ public class Menu {
 		System.out.println("Pick from one of the options above: ");
 
 		int optionSelect;
-		Scanner in = new Scanner(System.in);
 		optionSelect = in.nextInt();
+		in.nextLine();
+			
 		
-	
-		
-	//	Object valueEntered;
-	//	valueEntered = HashMap.get(callIndividualEvent);
-		
-		Events e1 = new Events("Cinema", "Hackney");
-		Events e2 = new Events("Skateboarding", "Brixton");
-		Events e3 = new Events("Water-sports", "Westminister");
-		Events e4 = new Events("Swimming", "Islington");
-		Events e5 = new Events("Basketball", "Camden");
-		Events e6 = new Events("Hockey", "Barnet");
+		Events e1 = new Events("1", "Cinema");
+		Events e2 = new Events("2", "Skateboarding");
+		Events e3 = new Events("3", "Water-sports");
+		Events e4 = new Events("4", "Swimming");
+		Events e5 = new Events("5", "Basketball");
+		Events e6 = new Events("6", "Hockey");
 		
 		Events.listEvents.put(e1.getEventName(), e1);
 		Events.listEvents.put(e2.getEventName(), e2);
@@ -44,11 +43,8 @@ public class Menu {
 		Events.listEvents.put(e5.getEventName(), e5);
 		Events.listEvents.put(e6.getEventName(), e6);
 		
-		
 		try{
-		
 			if (optionSelect == 1) {
-						
 			// For-loop that prints all events 
 			for(String key: Events.listEvents.keySet()) {
 					System.out.println(Events.listEvents.get(key));
@@ -56,22 +52,55 @@ public class Menu {
 			}
 			else if (optionSelect == 2) {
 			
-			System.out.println("Please enter the name of event you wish to see and press enter:"); 
+			System.out.println("Please enter the corresponding number of the event you wish to see and press enter:"); 
 
 			// Scanner that takes user input to retrieve event by Name
 				Scanner individualEvent = new Scanner(System.in);
 				String callIndividualEvent = individualEvent.nextLine();
+			
+			
+			// If else block to ensure an event is returned, and to prompt user action if
+			// no event (null) is returned 
+			
+				boolean result = Events.listEvents.get(callIndividualEvent) != null;
+
+				if(!result) {
+					System.out.println("You've entered an incorrect number, please select option 1 to"
+							+ " see all event names and their corresponding number again.");
+				}
 				
-				
-			// Takes user input to search for Name of existing events
-			System.out.println("Your event: " + Events.listEvents.get(callIndividualEvent));
+				else {
+					// Takes user input to search for Name of existing events
+					System.out.println("Your event: " + Events.listEvents.get(callIndividualEvent));
+				}			
 			}
 			
-						
+			// ****************	
 			
 			else if (optionSelect == 3) {
-				System.out.println("Option 3  Selected");
+				
+				System.out.println("Please enter the the corresponding number of the event you'd like to edit");
+				
+				Scanner toEditEvent = new Scanner(System.in);
+				String keyFromUser = toEditEvent.next();
+
+				System.out.println("New event name to replace previous: ");
+				String newEventName = toEditEvent.next();
+				
+				
+				Events newEdit = Events.listEvents.get(keyFromUser);
+				newEdit.setNewEvent(newEventName);
+				
+				System.out.println(newEventName);
+							
 			}
+			
+			
+			
+			// ****************
+
+			
+			
 			else if (optionSelect == 4) {
 				System.out.println("Option 4  Selected");
 			}
@@ -86,24 +115,32 @@ public class Menu {
 			}
 			else if (optionSelect == 8) {
 				System.out.println("Program Terminated! \n");
+				
+				// no longer displays menu and closes application
+				// optionSelect can be any integer - look into why this works
+				System.exit(optionSelect);
+			}
+			else {
+				System.out.println("Please enter a number between 1 and 8 ");
 			}
 		
 			// will display full menu after any option selection
 			MenuOptions();
-		} 
+			
+			
+		} // end of try block 
 		
-		catch(java.util.InputMismatchException e) {
-			System.out.println("Please enter a number between 1 and 8 " + e.getMessage());
+		catch(Exception e){
+			System.out.println("Please only enter a number between 1 and 8 ");
 		}
 		
-		catch(Exception e) {
-			System.out.println("Please only enter a number between 1 and 8 " + e.getMessage());
+//********** NOT FUNCTIONING AS IT SHOULD YET
+		finally {
+			System.out.println("Please only enter a number between 1 and 8 ");
 		}
-		
+									
 		MenuOptions();
 
 	}
-
-
 
 }

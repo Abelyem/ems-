@@ -15,14 +15,23 @@ public class Events {
 		this.eventLocation = eventLocation;
 	}
 	
+	// getter 
+	
 	public String getEventName() {
 		return eventName;
 	}
 
+	//setter
 	
+	public void setNewEvent(String newEvent) {
+	    this.eventName = newEvent;
+	  }
+
 	
 	@Override
 	public String toString() {
-	        return this.eventName + " at " + this.eventLocation;	               
+	        return this.eventName + " - " + this.eventLocation;	               
 	   }
+
+
 }
