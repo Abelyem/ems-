@@ -55,8 +55,7 @@ public class Menu {
 			System.out.println("Please enter the corresponding number of the event you wish to see and press enter:"); 
 
 			// Scanner that takes user input to retrieve event by Name
-				Scanner individualEvent = new Scanner(System.in);
-				String callIndividualEvent = individualEvent.nextLine();
+				String callIndividualEvent = in.nextLine();
 			
 			
 			// If else block to ensure an event is returned, and to prompt user action if
@@ -74,36 +73,49 @@ public class Menu {
 					System.out.println("Your event: " + Events.listEvents.get(callIndividualEvent));
 				}			
 			}
-			
-			// ****************	
-			
+						
 			else if (optionSelect == 3) {
 				
 				System.out.println("Please enter the the corresponding number of the event you'd like to edit");
 				
-				Scanner toEditEvent = new Scanner(System.in);
-				String keyFromUser = toEditEvent.next();
+				Scanner toEditEvent = in;
+				String keyFromUser = in.nextLine();
 
 				System.out.println("New event name to replace previous: ");
-				String newEventName = toEditEvent.next();
+				String newEventName = toEditEvent.nextLine();
 				
 				
 				Events newEdit = Events.listEvents.get(keyFromUser);
+				System.out.println(newEdit);
 				newEdit.setNewEvent(newEventName);
-				
-				System.out.println(newEventName);
+				System.out.println(newEdit);
+				Events.listEvents.replace(keyFromUser, newEdit);
+				System.out.println(Events.listEvents);
 							
 			}
 			
-			
-			
-			// ****************
-
-			
-			
 			else if (optionSelect == 4) {
-				System.out.println("Option 4  Selected");
-			}
+				
+				Scanner userInputToDelete = in;
+		
+				System.out.println("Event number to be removed: ");
+				String toDelete = userInputToDelete.nextLine(); 
+				
+				// Converting user input to an int to use within if block
+				int toDeleteInt = Integer.parseInt(toDelete);
+				
+					//if block to allow deletion of existing key-pair values - 
+					// goes to else block if user attempts to remove an event key which does not exist 
+				
+					if(toDeleteInt <= Events.listEvents.size()) {
+						Events.listEvents.remove(toDelete);
+						System.out.println(Events.listEvents);
+					}
+					else {
+						System.out.println("No event removed - please re-visit events list and re-attempt.");
+					}			
+				}
+			
 			else if (optionSelect == 5) {
 				System.out.println("Option 5  Selected");
 			}
@@ -117,7 +129,7 @@ public class Menu {
 				System.out.println("Program Terminated! \n");
 				
 				// no longer displays menu and closes application
-				// optionSelect can be any integer - look into why this works
+				// optionSelect is set as an integer
 				System.exit(optionSelect);
 			}
 			else {
@@ -134,7 +146,6 @@ public class Menu {
 			System.out.println("Please only enter a number between 1 and 8 ");
 		}
 		
-//********** NOT FUNCTIONING AS IT SHOULD YET
 		finally {
 			System.out.println("Please only enter a number between 1 and 8 ");
 		}
@@ -142,5 +153,4 @@ public class Menu {
 		MenuOptions();
 
 	}
-
 }
